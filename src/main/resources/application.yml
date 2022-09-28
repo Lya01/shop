@@ -1,0 +1,17 @@
+spring:
+  logging:
+    level:
+      root: ERROR
+      org.springframework.web: ERROR
+      org.hibernate: ERROR
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: jdbc:postgresql://localhost:5432/shopDatabase
+    username: postgres
+    password: eliana
+    driverClassName: org.postgresql.Driver
+
