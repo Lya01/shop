@@ -5,13 +5,14 @@ import com.example.shop.repository.ProdottoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-import java.awt.*;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProdottoService {
@@ -52,6 +53,11 @@ public class ProdottoService {
         return prodottoPage;
     }
 
+    public List<Prodotto> getProdotti(String nome){
+        List<Prodotto> prodotti=prodottoRepository.findByNome(nome);
+        return prodotti;
+    }
+
     private Page<Prodotto> getProdottiOrderByPrezzo(int page, int limit, Sort.Direction sortType) {
         Sort sort=Sort.by(sortType,"prezzo");
         Pageable pageable= PageRequest.of(page,limit,sort);
@@ -73,4 +79,5 @@ public class ProdottoService {
         Pageable pageable=PageRequest.of(page,limit,sort);
         return prodottoRepository.findByNomeContainingIgnoreCase(productName,pageable);
     }
+
 }

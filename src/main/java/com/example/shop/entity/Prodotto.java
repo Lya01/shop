@@ -1,13 +1,12 @@
 package com.example.shop.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,7 +19,7 @@ public class Prodotto {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id_prodotto")
-    private Integer idProdotto;
+    private int idProdotto;
 
     @NotNull
     @Column(name="nome")
@@ -37,4 +36,17 @@ public class Prodotto {
     @NotNull
     @Column(name="prezzo")
     private double prezzo;
+
+    @NotNull
+    @Column(name="disponibilita")
+    private int disponibilita;
+
+    @OneToMany(targetEntity = ProdottoInCart.class, mappedBy="prodotti",cascade= CascadeType.MERGE)
+    @ToString.Exclude
+    @JsonIgnore
+    private List<ProdottoInCart> prodottoInCart;
+
+    public String toString(){
+        return "prodotto "+idProdotto+", "+disponibilita+" "+nome;
+    }
 }
